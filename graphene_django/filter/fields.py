@@ -5,7 +5,6 @@ from django.core.exceptions import ValidationError
 
 from graphene.types.argument import to_arguments
 from graphene.types.enum import EnumType
-from graphene.utils.str_converters import to_snake_case
 
 from ..fields import DjangoConnectionField
 from .utils import get_filtering_args_from_filterset, get_filterset_class
@@ -85,8 +84,6 @@ class DjangoFilterConnectionField(DjangoConnectionField):
             kwargs = {}
             for k, v in args.items():
                 if k in filtering_args:
-                    if k == "order_by" and v is not None:
-                        v = to_snake_case(v)
                     kwargs[k] = convert_enum(v)
             return kwargs
 
